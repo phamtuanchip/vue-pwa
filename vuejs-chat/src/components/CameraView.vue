@@ -11,6 +11,7 @@
 
 <script>
 import { storage } from '../services/firebase'
+import postCat from '../mixins/postCat'
 export default {
   data() {
     return {
@@ -33,8 +34,14 @@ export default {
       const mediaStreamTrack = this.mediaStream.getVideoTracks()[0];
       const imageCapture = new window.ImageCapture(mediaStreamTrack);
       return imageCapture.takePhoto().then(blob => {
-         storage.ref().child(`images/picture-${new Date().getTime()}`).put(blob).then(res => { console.log(res) })
-         this.$router.go(-1)
+         storage.ref().child(`images/picture-${new Date().getTime()}`).put(blob).then(res => {
+             
+             this.postCat(res.metadata.downloadURLs[0], 'Hello')
+            this.$router.go(-1)
+            
+            
+        })
+        
 
       });
     }
