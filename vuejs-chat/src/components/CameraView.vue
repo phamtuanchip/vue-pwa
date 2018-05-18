@@ -1,11 +1,30 @@
 <template>
-    <div class="camera-modal">
+    <div class="mdl-grid camera-modal">
+       <div class="mdl-cell mdl-cell--2-col">
+        <div v-show="isActive" class="mdl-spinner is-active"></div>
+       </div>
+         <div class="mdl-cell mdl-cell--6-col">
         <video ref="video" class="camera-stream"/>
-        <div class="camera-modal-container">
-            <span @click="capture" class="take-picture-button take-picture-button mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
+         </div>
+         <div class="mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet">
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label is-upgraded is-dirty">
+          <input id="username" v-model="title" type="text" class="mdl-textfield__input"/>
+          <label for="username" class="mdl-textfield__label">Describe me</label>
+        </div>
+         <span v-if="!isActive" @click="capture" class="take-picture-button take-picture-button mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
               <i class="material-icons">camera</i>
             </span>
+         </div>
+         
+       
+        <div class="camera-modal-container">
+           <!--
+            <span v-if="!isActive" @click="capture" class="take-picture-button take-picture-button mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
+              <i class="material-icons">camera</i>
+            </span>
+            -->
         </div>
+        
     </div>
 </template>
 
@@ -16,7 +35,9 @@ export default {
   mixins: [postCat],
   data() {
     return {
-      mediaStream: null
+      mediaStream: null,
+      title: '',
+      isActive: false
     };
   },
 
@@ -34,13 +55,15 @@ export default {
     capture() {
       const mediaStreamTrack = this.mediaStream.getVideoTracks()[0];
       const imageCapture = new window.ImageCapture(mediaStreamTrack);
+      this.$refs.video.pause()
+      this.isActive = true
       return imageCapture.takePhoto().then(blob => {
         let imageName = `images/picture-${new Date().getTime()}`;
          storage.ref().child(imageName).put(blob).then(res => {
            res.ref.getDownloadURL().then(downloadURL => {
-
-            this.postCat(downloadURL, 'Hello')
-            this.$router.go(-1)
+            this.postCat(downloadURL, this.title)
+            this.isActive = false
+            this.$router.push('/')
            })
              
             

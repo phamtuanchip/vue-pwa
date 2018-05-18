@@ -22,6 +22,18 @@
         </div>
         -->
       </div>
+      <dialog  ref="dialog" class="mdl-dialog">
+      <h4 class="mdl-dialog__title">Allow data collection?</h4>
+      <div class="mdl-dialog__content">
+        <p>
+          Allowing us to collect data will let us get you the information you want faster.
+        </p>
+      </div>
+      <div class="mdl-dialog__actions">
+        <button type="button" class="mdl-button" @click="browse()" >Agree</button>
+        <button type="button" class="mdl-button close"  @click="hidePopup()" >Disagree</button>
+      </div>
+    </dialog>
     </div>
     <router-link class="add-picture-button mdl-button mdl-js-button mdl-button--fab mdl-button--colored" to="/post">
       <i class="material-icons">add</i>
@@ -29,6 +41,10 @@
     <router-link class="take-picture-button mdl-button mdl-js-button mdl-button--fab mdl-button--colored" to="/camera">
       <i class="material-icons">camera_alt</i>
     </router-link>
+    
+    <div class="select-picture-button mdl-button mdl-js-button mdl-button--fab mdl-button--colored" @click="showPopup()">
+      <i class="material-icons">insert_photo</i>
+    </div>
   </div>
 </template>
 <script>
@@ -55,6 +71,15 @@
           })
           localStorage.setItem('cats', JSON.stringify(cachedCats))
         })
+      },
+      showPopup(){
+        this.$refs.dialog.showModal()
+      },
+      hidePopup(){
+        this.$refs.dialog.close()
+      },
+      browse(){
+        
       }
     },
     mounted () {
@@ -63,6 +88,13 @@
   }
 </script>
 <style scoped>
+.select-picture-button {
+    position: fixed;
+    right: 24px;
+    bottom: 160px;
+    z-index: 5;
+  }
+  
 .take-picture-button {
     position: fixed;
     right: 24px;
