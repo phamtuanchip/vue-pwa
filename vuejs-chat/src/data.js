@@ -30,5 +30,9 @@ export default {
       'comment': 'Curious cat',
       'info': 'Posted by Richard on Monday'
     }
-  ]
+  ],
+  tblUser: [],
+  tblGroup: [],
+  xProfile: [],
+  xDocument: []
 }
