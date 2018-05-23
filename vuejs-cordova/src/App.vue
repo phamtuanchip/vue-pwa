@@ -7,21 +7,7 @@
       v-model="drawer"
       app
     >
-      <v-list>
-        <v-list-tile
-          value="true"
-          v-for="(item, i) in items"
-          :key="i"
-          exact
-        >
-          <v-list-tile-action>
-            <v-icon light v-html="item.icon"></v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title v-text="item.title"></v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-      </v-list>
+       <Menu :items="items" />
     </v-navigation-drawer>
     <v-toolbar fixed app :clipped-left="clipped">
       <v-toolbar-side-icon @click.stop="drawer = !drawer" light></v-toolbar-side-icon>
@@ -72,7 +58,9 @@
 
 <script>
   import Vue from 'vue'
+  import Menu from '@/components/Menu'
   export default {
+    components: {Menu},
     data () {
       return {
         cordova: Vue.cordova,
