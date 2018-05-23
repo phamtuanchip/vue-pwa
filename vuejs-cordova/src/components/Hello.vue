@@ -11,7 +11,29 @@
             </small>
           </footer>
         </blockquote>
+        <DateTimePicker  :label="label"
+         :datetime="datetime"
+         @input="updateDatetime" />
       </v-layout>
     </v-slide-y-transition>
   </v-container>
 </template>
+<script>
+import DateTimePicker from '@/components/DateTimePicker'
+export default {
+  components: {DateTimePicker},
+  data(){
+    return {
+      datetime:'2017-06-30 11:05:00',
+    label:'Custom Component'
+    }
+  },
+  methods: {
+    updateDatetime: function(datetime){
+      this.datetime=datetime;
+    }
+  }
+  
+}
+</script>
+

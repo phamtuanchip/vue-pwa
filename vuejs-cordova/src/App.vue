@@ -44,14 +44,7 @@
       v-model="rightDrawer"
       fixed
     >
-      <v-list>
-        <v-list-tile @click="right = !right">
-          <v-list-tile-action>
-            <v-icon light>compare_arrows</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-title>Switch drawer (click me)</v-list-tile-title>
-        </v-list-tile>
-      </v-list>
+     <RightSide :items="items2" />
     </v-navigation-drawer>
   </v-app>
 </template>
@@ -59,8 +52,9 @@
 <script>
   import Vue from 'vue'
   import Menu from '@/components/Menu'
+  import RightSide from '@/components/RightSide'
   export default {
-    components: {Menu},
+    components: {Menu, RightSide},
     data () {
       return {
         cordova: Vue.cordova,
@@ -69,6 +63,10 @@
         items: [{
           icon: 'bubble_chart',
           title: 'Inspire'
+        }],
+        items2: [{
+          icon: 'compare_arrows',
+          title: 'Switch drawer (click me)'
         }],
         miniVariant: false,
         right: true,
@@ -80,7 +78,13 @@
       var self = this
       this.cordova.on('deviceready', () => {
         self.onDeviceReady()
+      }),
+      this.$on('switch', (db)=>{
+        this.right = db
       })
+    },
+    destroyed(){
+      this.$off('switch')
     },
     methods: {
       onDeviceReady: function () {
