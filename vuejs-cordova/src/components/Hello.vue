@@ -16,6 +16,7 @@
          @input="updateDatetime" />
       </v-layout>
     </v-slide-y-transition>
+    <v-ons-button>Click Me</v-ons-button>
   </v-container>
 </template>
 <script>

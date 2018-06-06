@@ -53,16 +53,25 @@
   import Vue from 'vue'
   import Menu from '@/components/Menu'
   import RightSide from '@/components/RightSide'
+  import Geek from '@/components/Geek'
   export default {
-    components: {Menu, RightSide},
+    components: {Menu, RightSide, Geek},
     data () {
       return {
         cordova: Vue.cordova,
         clipped: false,
         drawer: true,
-        items: [{
+        items: [
+          
+          {
           icon: 'bubble_chart',
-          title: 'Inspire'
+          title: 'Home',
+          link: '/geek'
+        },
+          {
+          icon: 'bubble_chart',
+          title: 'Inspire',
+          link: '/home'
         }],
         items2: [{
           icon: 'compare_arrows',

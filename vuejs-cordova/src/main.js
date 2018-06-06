@@ -9,10 +9,16 @@ import VueHead from 'vue-head'
 import App from './App'
 import router from './router'
 
+
+import 'onsenui/css/onsenui.css';
+import 'onsenui/css/onsen-css-components.css';
+import VueOnsen from 'vue-onsenui';
+
 Vue.use(Vuetify)
 Vue.config.productionTip = false
 Vue.use(VueCordova)
 Vue.use(VueHead)
+Vue.use(VueOnsen)
 
 // add cordova.js only if serving the app through file://
 if (window.location.protocol === 'file:' || window.location.port === '3000') {
